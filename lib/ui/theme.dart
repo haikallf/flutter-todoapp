@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 Map<int, Color> colorCodes = {
   50: Color.fromRGBO(147, 205, 72, .1),
@@ -28,12 +30,34 @@ class Themes {
   static final light =  ThemeData(
     primarySwatch: primaryMaterialClr,
     primaryColor: primaryClr,
+    backgroundColor: Colors.white,
     brightness: Brightness.light
   );
 
   static final dark = ThemeData(
     primarySwatch: darkGreyMaterialClr,
     primaryColor: darkGreyClr,
+    backgroundColor: darkGreyClr,
     brightness: Brightness.dark
+  );
+}
+
+TextStyle get subHeadingStyle{
+  return GoogleFonts.lato (
+    textStyle: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: Get.isDarkMode ? Colors.grey[400]: Colors.grey
+    )
+  );
+}
+
+TextStyle get headingStyle{
+  return GoogleFonts.lato (
+      textStyle: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Get.isDarkMode ? Colors.white: Colors.black
+      )
   );
 }
