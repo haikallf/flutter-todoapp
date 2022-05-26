@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todoapp/ui/theme.dart';
+import 'package:todoapp/ui/widgets/button.dart';
 import 'package:todoapp/ui/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 
@@ -115,38 +116,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
               ),),
               SizedBox(height: 18),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Color", style: titleStyle,),
-                      SizedBox(height: 8.0),
-                      Wrap(
-                        children:
-                          List<Widget>.generate(
-                            3,
-                            (int index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _selectedColor = index;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: 8.0),
-                                  child: CircleAvatar(
-                                    radius: 14,
-                                    backgroundColor: index == 0 ? primaryClr : index == 1 ? pinkClr : yellowClr,
-                                    child: _selectedColor == index ? Icon(Icons.done, color: Colors.white, size: 16) : Container(),
-                                  ),
-                                ),
-                              );
-                            }
-                          )
-                        ,
-                      )
-                    ],
-                  )
+                  _colorPalette(),
+                  MyButton(label: "Create Task", onTap: () => {})
                 ],
               )
             ],
@@ -217,6 +191,40 @@ class _AddTaskPageState extends State<AddTaskPage> {
       initialEntryMode: TimePickerEntryMode.input,
       context: context,
       initialTime: TimeOfDay(hour: int.parse(_startTime.split(":")[0]), minute: int.parse(_startTime.split(":")[1].split(" ")[0]))
+    );
+  }
+
+  _colorPalette() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Color", style: titleStyle,),
+        SizedBox(height: 8.0),
+        Wrap(
+          children:
+          List<Widget>.generate(
+              3,
+                  (int index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedColor = index;
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: CircleAvatar(
+                      radius: 14,
+                      backgroundColor: index == 0 ? primaryClr : index == 1 ? pinkClr : yellowClr,
+                      child: _selectedColor == index ? Icon(Icons.done, color: Colors.white, size: 16) : Container(),
+                    ),
+                  ),
+                );
+              }
+          )
+          ,
+        )
+      ],
     );
   }
 }
