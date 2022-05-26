@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todoapp/ui/theme.dart';
@@ -29,6 +30,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     "Weekly",
     "Monthly"
   ];
+  int _selectedColor = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,43 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     _selectedRepeat = newValue!;
                   });
                 },
-              ),)
+              ),),
+              SizedBox(height: 18),
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Color", style: titleStyle,),
+                      SizedBox(height: 8.0),
+                      Wrap(
+                        children:
+                          List<Widget>.generate(
+                            3,
+                            (int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _selectedColor = index;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: CircleAvatar(
+                                    radius: 14,
+                                    backgroundColor: index == 0 ? primaryClr : index == 1 ? pinkClr : yellowClr,
+                                    child: _selectedColor == index ? Icon(Icons.done, color: Colors.white, size: 16) : Container(),
+                                  ),
+                                ),
+                              );
+                            }
+                          )
+                        ,
+                      )
+                    ],
+                  )
+                ],
+              )
             ],
           ),
         ),
