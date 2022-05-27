@@ -102,7 +102,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   });
                 },
               ),),
-              MyInputField(title: "Remind", hint: _selectedRepeat, widget: DropdownButton(
+              MyInputField(title: "Repeat", hint: _selectedRepeat, widget: DropdownButton(
                 icon: Icon(Icons.keyboard_arrow_down, color: Colors.grey),
                 iconSize: 32,
                 elevation: 4,
