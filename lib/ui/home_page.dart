@@ -1,6 +1,7 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:todoapp/services/theme_services.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:todoapp/ui/add_task_bar.dart';
 import 'package:todoapp/ui/theme.dart';
 import 'package:todoapp/ui/widgets/button.dart';
+import 'package:todoapp/ui/widgets/task_tile.dart';
 
 import '../controllers/task_controller.dart';
 import '../services/notification_services.dart';
@@ -55,13 +57,20 @@ class _HomePageState extends State<HomePage> {
               return ListView.builder(
                   itemCount: _taskController.taskList.length,
                   itemBuilder: (_, index) {
-                  return Container(
-                      width: 100,
-                      height: 50,
-                      color: Colors.green,
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: Text(_taskController.taskList[index].title.toString()),
-                    );
+                  return AnimationConfiguration.staggeredList(position: index,
+                      child: SlideAnimation(
+                        child: FadeInAnimation(
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: (){},
+                                child: TaskTile(_taskController.taskList[index]),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                  );
               });
         }),
     );
