@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           _addTaskBar(),
           _addDateBar(),
+          SizedBox(height: 10),
           _showTasks(),
         ],
       )
@@ -53,12 +54,14 @@ class _HomePageState extends State<HomePage> {
           print("len is" + _taskController.taskList.length.toString());
               return ListView.builder(
                   itemCount: _taskController.taskList.length,
-                  itemBuilder: (_, context) {
+                  itemBuilder: (_, index) {
                   return Container(
-                    width: 100,
-                    height: 50,
-                    color: Colors.green,
-                  );
+                      width: 100,
+                      height: 50,
+                      color: Colors.green,
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Text(_taskController.taskList[index].title.toString()),
+                    );
               });
         }),
     );
@@ -119,7 +122,11 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          MyButton(label: "+ Add Task", onTap: () => Get.to(() => AddTaskPage()))
+          MyButton(label: "+ Add Task", onTap: () async {
+            await Get.to(() => AddTaskPage());
+            _taskController.getTasks();
+            }
+          )
         ],
       ),
     );
