@@ -41,8 +41,9 @@ class Task {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['title'] = this.title;
-    data['date'] = this.note;
+    data['note'] = this.note;
     data['isCompleted'] = this.isCompleted;
+    data['date'] = this.date;
     data['startTime'] = this.startTime;
     data['endTime'] = this.endTime;
     data['color'] = this.color;
