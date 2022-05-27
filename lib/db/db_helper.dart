@@ -14,6 +14,7 @@ class DBHelper {
 
     try {
       String _path = await getDatabasesPath() + 'tasks.db';
+      print(_path);
       _db = await openDatabase(
         _path,
         version: _version,
@@ -27,7 +28,7 @@ class DBHelper {
                 "remind INTEGER, repeat STRING, "
                 "color INTEGER, "
                 "isCompleted INTEGER)",
-        );
+          );
         },
       );
     }
