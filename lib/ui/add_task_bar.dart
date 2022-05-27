@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todoapp/controllers/task_controller.dart';
 import 'package:todoapp/ui/theme.dart';
 import 'package:todoapp/ui/widgets/button.dart';
 import 'package:todoapp/ui/widgets/input_field.dart';
 import 'package:intl/intl.dart';
+
+import '../models/task.dart';
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  final TaskController _taskController = Get.put(TaskController());
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
@@ -136,7 +141,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   _validateData() {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
-      // add to db
+      _addTaskToDB();
       Get.back();
     }
     else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
@@ -147,6 +152,22 @@ class _AddTaskPageState extends State<AddTaskPage> {
           icon: Icon(Icons.warning_amber_outlined, color: pinkClr)
       );
     }
+  }
+
+  _addTaskToDB() async {
+    int value = await _taskController.addTask(task:Task(
+      note: _noteController.text,
+      title: _titleController.text,
+      date: DateFormat.yMd().format(_selectedDate),
+      startTime: _startTime,
+      endTime: _endTime,
+      remind: _selectedRemind,
+      repeat: _selectedRepeat,
+      color: _selectedColor,
+      isCompleted: 0,
+    ));
+
+    print("The id is $value");
   }
 
   _appBar(BuildContext context) {
