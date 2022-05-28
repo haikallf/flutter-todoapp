@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
+import '../models/task.dart';
+
 class NotifyHelper{
   FlutterLocalNotificationsPlugin
   flutterLocalNotificationsPlugin =
@@ -54,7 +56,7 @@ class NotifyHelper{
     );
   }
 
-  scheduledNotification() async {
+  scheduledNotification(int hour, int minutes, Task task) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
         'scheduled title',
